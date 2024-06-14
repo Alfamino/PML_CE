@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Load data
 
-First we load the libraries that are needed to perform the analysis and read the data as the data frame object. Next we investigate the names of the dataset.
+First we load the libraries that are needed to perform the analysis and read the data as the data frame object. Next we investigate the names of the data set.
 
 ```{r }
 library(caret)
@@ -29,7 +29,7 @@ tail(names(data_train),20)
 
 ## Preprocessing
 
-As we see there are plenty of the columns that migt not be useful in our prediction. There is 160 feathers. So we will cutoff the columns only for these that are related with a specific activity and person. There was a problem later in the piepline that ML functions gave the error, so we also try to omit all the data that are *NA*  - it solved the problem. Lets keep in mind that that all this will reduce the number of feachers. 
+As we see there are plenty of the columns that might not be useful in our prediction. There is 160 feathers. So we will cutoff the columns only for these that are related with a specific activity and person. There was a problem later in the pipeline that ML functions gave the error, so we also try to omit all the data that are *NA*  - it solved the problem. Lets keep in mind that that all this will reduce the number of feathers. 
 
 ```{r }
 data_train$classe <- factor(data_train$classe)
@@ -44,7 +44,7 @@ data_train <- data_train[ , selector2 ]
 length(selector2)
 ```
 
-This will give us 53 feachers. Next we devide the dataset into training and testing.
+This will give us 53 feathers. Next we divide the data set into training and testing.
 
 ```{r }
 selectors <- createDataPartition( y=data_train$classe, p = 0.6 , list = FALSE )
@@ -73,7 +73,7 @@ model3 <- train(classe~., data = train_set, method = 'lda',verbose=0)
 
 ## Predictions
 
-The we do the predictions on our test set make the confiousion matrix to investigate wich one is the best.
+The we do the predictions on our test set make the confusion matrix to investigate which one is the best.
 
 ```{r ,cache = TRUE}
 preds1 <- predict( model1, data = test_set )
@@ -85,7 +85,7 @@ conf2 <- confusionMatrix( preds2, train_set$classe )
 conf3 <- confusionMatrix( preds3, train_set$classe )
 ```
 
-After performing prediction we check the confiousion matrix for:
+After performing prediction we check the confusion matrix for:
 
 * conf1 - Random Forest
 * conf2 - Generalized Boosted Regression Models

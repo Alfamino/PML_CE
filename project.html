@@ -361,7 +361,7 @@ display: none;
 <h2>Load data</h2>
 <p>First we load the libraries that are needed to perform the analysis
 and read the data as the data frame object. Next we investigate the
-names of the dataset.</p>
+names of the data set.</p>
 <pre class="r"><code>library(caret)</code></pre>
 <pre><code>## Ładowanie wymaganego pakietu: ggplot2</code></pre>
 <pre><code>## Ładowanie wymaganego pakietu: lattice</code></pre>
@@ -385,13 +385,13 @@ tail(names(data_train),20)</code></pre>
 </div>
 <div id="preprocessing" class="section level2">
 <h2>Preprocessing</h2>
-<p>As we see there are plenty of the columns that migt not be useful in
+<p>As we see there are plenty of the columns that might not be useful in
 our prediction. There is 160 feathers. So we will cutoff the columns
 only for these that are related with a specific activity and person.
-There was a problem later in the piepline that ML functions gave the
+There was a problem later in the pipeline that ML functions gave the
 error, so we also try to omit all the data that are <em>NA</em> - it
 solved the problem. Lets keep in mind that that all this will reduce the
-number of feachers.</p>
+number of feathers.</p>
 <pre class="r"><code>data_train$classe &lt;- factor(data_train$classe)
 selector1 &lt;- colnames(data_test)[(sapply(colnames(data_test),
                                    function(x){
@@ -403,7 +403,7 @@ selector2 &lt;- colnames(data_train)[grep(&#39;_belt|_arm|_dumb|_forearm|classe&
 data_train &lt;- data_train[ , selector2 ]
 length(selector2)</code></pre>
 <pre><code>## [1] 53</code></pre>
-<p>This will give us 53 feachers. Next we devide the dataset into
+<p>This will give us 53 feathers. Next we divide the data set into
 training and testing.</p>
 <pre class="r"><code>selectors &lt;- createDataPartition( y=data_train$classe, p = 0.6 , list = FALSE )
 train_set &lt;- data_train[ selectors, ]
@@ -427,8 +427,8 @@ model3 &lt;- train(classe~., data = train_set, method = &#39;lda&#39;,verbose=0)
 </div>
 <div id="predictions" class="section level2">
 <h2>Predictions</h2>
-<p>The we do the predictions on our test set make the confiousion matrix
-to investigate wich one is the best.</p>
+<p>The we do the predictions on our test set make the confusion matrix
+to investigate which one is the best.</p>
 <pre class="r"><code>preds1 &lt;- predict( model1, data = test_set )
 preds2 &lt;- predict( model2, data = test_set )
 preds3 &lt;- predict( model3, data = test_set )
@@ -436,7 +436,7 @@ preds3 &lt;- predict( model3, data = test_set )
 conf1 &lt;- confusionMatrix( preds1, train_set$classe )
 conf2 &lt;- confusionMatrix( preds2, train_set$classe )
 conf3 &lt;- confusionMatrix( preds3, train_set$classe )</code></pre>
-<p>After performing prediction we check the confiousion matrix for:</p>
+<p>After performing prediction we check the confusion matrix for:</p>
 <ul>
 <li>conf1 - Random Forest</li>
 <li>conf2 - Generalized Boosted Regression Models</li>
